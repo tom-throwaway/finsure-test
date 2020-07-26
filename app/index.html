@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html lang="en" ng-app="myApp" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en" ng-app="infynityApp" class="no-js"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Infynity CRM | Lender Products</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="stylesheet" href="lib/bootstrap-4.5.0-dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/screen.css">
+</head>
+<body>
+
+    <div ng-controller="InfynityController as infynity">
+
+        <div id="loading-overlay" ng-class="{visible: loading === true}"><div class="spinner"></div></div>
+
+        <header class="infynity-header">
+            <img src="img/header.png" />
+        </header>
+
+        <div class="main-content">
+
+            <section class="content-section">
+
+                <header class="content-section__header">
+                    <h1>Lender Maintenance</h1>
+                </header>
+
+                <div class="content-section__body">
+            
+                    <!-- Lenders table -->
+                    <table ng-if="loading === false && lenders !== undefined" ng-cloak class="lenders-table table table-striped">
+                        <thead>
+                            <tr class="lenders-table__head-row-1">
+                                <th>Bank Code</th>
+                                <th>Display Name</th>
+                                <th>Type</th>
+                                <th colspan="3" class="text-center">Commission</th>
+                                <th class="bm-column text-center">Balance Multiplier</th>
+                                <th class="text-center">Active</th>
+                                <th class="text-center">Hide</th>
+                                <th>Edit</th>
+                            </tr>
+                            <tr class="lenders-table__head-row-2">
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th class="text-right">Upfront</th>
+                                <th class="text-right">Trail High</th>
+                                <th class="text-right">Trail Low</th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="lender in lenders" class="lender">
+                                <td><strong>{{lender.attributes.code}}</strong></td>
+                                <td>{{lender.attributes.name}}</td>
+                                <td>{{lender.attributes.type | titleCase}}</td>
+                                <td class="text-right">%{{lender.attributes.upfont_commission}}</td>
+                                <td class="text-right">%{{lender.attributes.high_trail_commission}}</td>
+                                <td class="text-right">%{{lender.attributes.low_trail_commission}}</td>
+                                <td class="bm-column text-right">{{lender.attributes.balance_multiplier}}</td>
+                                <td class="text-center">
+                                    <label class="custom-checkbox">
+                                        <input type="checkbox" ng-model="lender.attributes.is_active" disabled />
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </td>
+                                <td class="text-center">
+                                    <label class="custom-checkbox">
+                                        <input type="checkbox" ng-model="lender.attributes.is_hidden" disabled />
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </td>
+                                <td><img class="icon-edit" src="img/icon-edit.png" /> Edit</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <!-- Error loading data section -->
+                    <div ng-if="loading === false && lenders === undefined" ng-cloak class="loading-error text-center">
+                        <p>We're sorry, we were unable to load the lender data.</p>
+                        <button type="button" class="btn btn-primary" ng-click="loadLenderData()">Try again</button>
+                    </div>
+                </div>
+                
+            </section>
+
+        </div>
+
+    </div>
+
+    <script src="lib/angular/angular.js"></script>
+    <script src="js/app.js"></script>
+
+</body>
+</html>

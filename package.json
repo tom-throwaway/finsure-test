@@ -1,0 +1,33 @@
+{
+  "name": "infynity",
+  "version": "1.0.0",
+  "description": "Implementation of developer test",
+  "main": "index.js",
+  "scripts": {
+    "postinstall": "npm run copy-libs && npm run compile-sass",
+    "copy-libs": "cpx \"node_modules/{angular,angular-*}/**/*\" app/lib -C",
+    "compile-sass": "sass .\\app\\scss\\screen.scss .\\app\\css\\screen.css",
+    "watch-sass": "sass --watch .\\app\\scss\\screen.scss .\\app\\css\\screen.css",
+    "prestart": "npm install",
+    "start": "http-server -a localhost -p 8000 -c-1 ./app",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thomas-mitchell/finsure.git"
+  },
+  "author": "Thomas Mitchell",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/thomas-mitchell/finsure/issues"
+  },
+  "homepage": "https://github.com/thomas-mitchell/finsure#readme",
+  "dependencies": {
+    "angular": "^1.6.5"
+  },
+  "devDependencies": {
+    "cpx": "^1.5.0",
+    "http-server": "^0.12.3",
+    "sass": "^1.26.10"
+  }
+}
